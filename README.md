@@ -215,13 +215,24 @@ Each expense belongs to a user, so a user only ever sees their own data.
 
 ## Screenshots
 
-> Replace these placeholders with real screenshots.
+### Authentication
 
-| Page | Screenshot |
-|------|------------|
-| Login | _([placeholder](#))_ |
-| Register | _([placeholder](#))_ |
-| Dashboard | _([placeholder](#))_ |
-| Expense list | _([placeholder](#))_ |
-| Add expense | _([placeholder](#))_ |
-| Edit expense | _([placeholder](#))_ |
+| Login | Register |
+|:-----:|:--------:|
+| <img src="screenshots/login.png" alt="Login page" width="420"/> | <img src="screenshots/register.png" alt="Register page" width="420"/> |
+
+### Dashboard
+
+<p align="center">
+  <img src="screenshots/dashboard.png" alt="Dashboard with summary cards and charts" width="850"/>
+</p>
+
+### Expense management
+
+| Expense list | Add expense |
+|:------------:|:-----------:|
+| <img src="screenshots/expense-list.png" alt="Expense list" width="420"/> | <img src="screenshots/add-expense.png" alt="Add expense form" width="420"/> |
+
+| Edit expense | Search &amp; filter |
+|:------------:|:-------------------:|
+| <img src="screenshots/edit-expense.png" alt="Edit expense form" width="420"/> | <img src="screenshots/search-filter.png" alt="Search and filter" width="420"/> |
