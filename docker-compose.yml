@@ -1,0 +1,54 @@
+services:
+  # ---------- MySQL database ----------
+  mysql:
+    image: mysql:8.0
+    container_name: expense-mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: expense_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - expense-net
+
+  # ---------- Spring Boot backend ----------
+  backend:
+    build: ./expense-tracker-backend
+    container_name: expense-backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # Override the datasource so the app reaches MySQL by its service name.
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/expense_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+    ports:
+      - "9097:9097"
+    networks:
+      - expense-net
+
+  # ---------- React frontend ----------
+  frontend:
+    build: ./expense-tracker-frontend
+    container_name: expense-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5284:5284"
+    networks:
+      - expense-net
+
+volumes:
+  mysql_data:
+
+networks:
+  expense-net:
+    driver: bridge
